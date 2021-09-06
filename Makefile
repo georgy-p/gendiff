@@ -1,0 +1,3 @@
+gendiff:
+	./bin/gendiff.js
+
