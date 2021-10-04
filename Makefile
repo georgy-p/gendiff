@@ -1,3 +1,5 @@
+install: install-deps
+
 gendiff:
 	./bin/gendiff.js
 
@@ -12,4 +14,4 @@ lint:
 
 publish:
 	npm publish
-	
+
