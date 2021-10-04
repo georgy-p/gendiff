@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import process from 'process';
 
-
 const getFullPath = (node, fileName) => path.resolve(node, fileName);
 
 const getFile = (fileName, node = process.cwd()) => {
@@ -23,11 +22,15 @@ const getFile = (fileName, node = process.cwd()) => {
   return result;
 };
 
+console.log(getFile('file'));
+
 // This program help to find file in the directory by the name and parse data;
-export const getData = (fileName) => {
+export default (fileName) => {
+  if (!fs.existsSync(fileName) || !getFile(fileName)) {
+    return `Error: No '${fileName}' in directory. Check the name! `;
+  }
   if (fs.existsSync(fileName)) {
     return fs.readFileSync(fileName, 'utf-8');
-  } else {
-    return fs.readFileSync(getFile(fileName), 'utf8');
   }
+  return fs.readFileSync(getFile(fileName), 'utf8');
 };
