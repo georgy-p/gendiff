@@ -19,7 +19,7 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: Check linter
-        run: make lint
+        run: npx eslint .
 
       - name: Check jest
         run: npm test
