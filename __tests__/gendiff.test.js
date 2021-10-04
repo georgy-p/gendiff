@@ -1,7 +1,5 @@
 import { beforeEach, test, expect } from '@jest/globals';
-import { dirname } from 'path';
-// eslint-disable-next-line import/no-unresolved
-import path from 'path/posix';
+import { dirname, path } from 'path';
 import { fileURLToPath } from 'url';
 import genDiff from '../index.js';
 
