@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { genDiff } from '../index.js';
+// eslint-disable-next-line import/extensions
+import genDiff from '../index.js';
 
 const program = new Command();
 
@@ -9,6 +10,6 @@ program
   .arguments('<filepath1> <filepath2>')
   .option('-V, --version', 'output the version number')
   .option('-f, --format [type]', 'output format')
-  .action((file1, file2) => genDiff(file1, file2));
+  .action((file1, file2) => console.log(genDiff(file1, file2)));
 
 program.parse();
