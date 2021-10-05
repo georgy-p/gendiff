@@ -31,3 +31,10 @@ test('genDiff test1: short name', () => {
 test('genDiff test2: full path', () => {
   expect(genDiff(fullPath, file2)).toEqual(result);
 });
+
+const ymlFile1 = 'test_file1.yml';
+const ymlFile2 = 'test_file2.yml';
+
+test('genDiff test3: yml files compare', () => {
+  expect(genDiff(ymlFile1, ymlFile2)).toEqual(result);
+});
