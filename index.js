@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/extensions
-import getData from './src/filetools.js';
+import parser from './src/parsers.js';
 
 const getSorted = (coll) => coll.sort((a, b) => {
   if (a[1] === b[1]) {
@@ -15,8 +15,8 @@ const getSorted = (coll) => coll.sort((a, b) => {
 });
 
 export default (fileName1, fileName2) => {
-  const file1 = JSON.parse(getData(fileName1));
-  const file2 = JSON.parse(getData(fileName2));
+  const file1 = parser(fileName1);
+  const file2 = parser(fileName2);
   const file1Keys = Object.keys(file1);
   const file2Keys = Object.keys(file2);
   const uniq1Keys = file1Keys.filter((key) => !file2Keys.includes(key));
