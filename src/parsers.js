@@ -23,7 +23,6 @@ const getFile = (fileName, node = process.cwd()) => {
   return result;
 };
 
-// This program help to find file in the directory by the name and parse data;
 const fileReader = (fileName) => {
   if (fs.existsSync(fileName)) {
     return fs.readFileSync(fileName, 'utf-8');
