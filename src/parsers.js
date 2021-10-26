@@ -32,11 +32,11 @@ const fileReader = (fileName) => {
 
 export default (fileName) => {
   const extname = path.extname(fileName);
-  let parse;
   if (extname === '.yml' || extname === '.yaml') {
-    parse = yaml.load(fileReader(fileName));
-    return parse;
+    return yaml.load(fileReader(fileName));
   }
-  parse = JSON.parse(fileReader(fileName));
-  return parse;
+  if (extname === '.json') {
+    return JSON.parse(fileReader(fileName));
+  }
+  return fs.readFileSync(fileName, 'utf-8');
 };
