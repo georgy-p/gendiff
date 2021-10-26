@@ -7,4 +7,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/203bfb8ebcf849dca3ea/test_coverage)](https://codeclimate.com/github/georgy-p/frontend-project-lvl2/test_coverage)
 
 ### Example:
-[![asciicast](https://asciinema.org/a/442297.svg)](https://asciinema.org/a/442297)
+[![asciicast](https://asciinema.org/a/444721.svg)](https://asciinema.org/a/444721)
