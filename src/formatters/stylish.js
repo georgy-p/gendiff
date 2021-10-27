@@ -1,28 +1,46 @@
-import stringify from './stringify.js';
+import _ from 'lodash';
 
-const render = (treeAst) => {
-  const result = treeAst.reduce((acc, el) => {
-    const {
-      name, type, value, oldValue, newValue, children,
-    } = el;
-    switch (type) {
-      case 'unchanged':
-        return { ...acc, [`  ${name}`]: value };
-      case 'added':
-        return { ...acc, [`+ ${name}`]: value };
-      case 'removed':
-        return { ...acc, [`- ${name}`]: value };
-      case 'updated':
-        return { ...acc, [`- ${name}`]: oldValue, [`+ ${name}`]: newValue };
-      case 'nested':
-        return { ...acc, [`  ${name}`]: render(children) };
-      default:
-        return acc;
+const stringify = (value, spaces) => {
+  if (!_.isPlainObject(value)) {
+    return value;
+  }
+  const indent = ' '.repeat(spaces + 6);
+  const indentBraces = ' '.repeat(spaces + 2);
+  const result = _.keys(value).map((key) => {
+    if (typeof value[key] === 'object') {
+      return `${indent}${key}: ${stringify(value[key], spaces + 4)}\n`;
     }
-  }, {});
-  return result;
+    return `${indent}${key}: ${value[key]}\n`;
+  });
+
+  return `{\n${result.join('')}${indentBraces}}`;
 };
 
-const getStylish = (data) => stringify(render(data));
+const getStylish = (nodes) => {
+  const innerIter = (node, space = 2) => {
+    const indent = ' '.repeat(space);
+    const indentBraces = ' '.repeat(space + 2);
+    switch (node.type) {
+      case 'added':
+        return `\n${indent}+ ${node.name}: ${stringify(node.value, space)}`;
+      case 'removed':
+        return `\n${indent}- ${node.name}: ${stringify(node.value, space)}`;
+      case 'nested':
+        return `\n${indentBraces}${node.name}: {${node.children.map((i) => innerIter(i, space + 4)).join('')}\n${indentBraces}}`;
+      case 'updated':
+        return `\n${indent}- ${node.name}: ${stringify(node.oldValue, space)}\n${indent}+ ${node.name}: ${stringify(node.newValue, space)}`;
+      case 'unchanged':
+        return `\n${indentBraces}${node.name}: ${stringify(node.value, space)}`;
+      default:
+        throw new Error(`Unexpected type ${node.type}`);
+    }
+  };
+  return innerIter(nodes);
+};
 
-export default getStylish;
+const stylish = (data) => {
+  const lines = data.map((i) => getStylish(i)).join('');
+  return `{${lines}\n}`;
+};
+
+export default stylish;
