@@ -26,7 +26,7 @@ const getStylish = (nodes) => {
       case 'removed':
         return `\n${indent}- ${node.name}: ${stringify(node.value, space)}`;
       case 'nested':
-        return `\n${indentBraces}${node.name}: {${node.children.map((i) => innerIter(i, space + 4)).join('')}\n${indentBraces}}`;
+        return `\n${indentBraces}${node.name}: {${node.children.map((child) => innerIter(child, space + 4)).join('')}\n${indentBraces}}`;
       case 'updated':
         return `\n${indent}- ${node.name}: ${stringify(node.oldValue, space)}\n${indent}+ ${node.name}: ${stringify(node.newValue, space)}`;
       case 'unchanged':
@@ -38,8 +38,8 @@ const getStylish = (nodes) => {
   return innerIter(nodes);
 };
 
-const stylish = (data) => {
-  const lines = data.map((i) => getStylish(i)).join('');
+const stylish = (treeAst) => {
+  const lines = treeAst.map((node) => getStylish(node)).join('');
   return `{${lines}\n}`;
 };
 
