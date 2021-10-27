@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import genDiff from '../index.js';
+import genDiff from '../src/index.js';
 import parsers from '../src/parsers.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -32,4 +32,10 @@ const plainResult = parsers(getFixturePath('plain_result.txt'));
 
 test('genDiff plain test4: plain formate', () => {
   expect(genDiff(file1, file2, 'plain')).toEqual(plainResult);
+});
+
+const jsonResult = parsers(getFixturePath('expectedjson'));
+
+test('genDiff json test5: json formate', () => {
+  expect(genDiff(file1, file2, 'json')).toEqual(jsonResult);
 });
