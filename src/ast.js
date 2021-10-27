@@ -31,27 +31,27 @@ const buildAst = (data1, data2) => {
       return {
         name: key,
         type: 'removed',
-        value1: getClone(data1[key]),
+        value: getClone(data1[key]),
       };
     }
     if (!_.has(data1, key)) {
       return {
         name: key,
         type: 'added',
-        value1: getClone(data2[key]),
+        value: getClone(data2[key]),
       };
     }
     return (_.isEqual(data1[key], data2[key]))
       ? {
         name: key,
         type: 'unchanged',
-        value1: getClone(data1[key]),
+        value: getClone(data1[key]),
       }
       : {
         name: key,
         type: 'updated',
-        value1: getClone(data1[key]),
-        value2: getClone(data2[key]),
+        oldValue: getClone(data1[key]),
+        newValue: getClone(data2[key]),
       };
   });
   return result;
