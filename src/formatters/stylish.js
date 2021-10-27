@@ -1,19 +1,19 @@
 import stringify from './stringify.js';
 
-const render = (value) => {
-  const result = value.reduce((acc, el) => {
+const render = (treeAst) => {
+  const result = treeAst.reduce((acc, el) => {
     const {
-      name, type, value1, value2, children,
+      name, type, value, oldValue, newValue, children,
     } = el;
     switch (type) {
       case 'unchanged':
-        return { ...acc, [`  ${name}`]: value1 };
+        return { ...acc, [`  ${name}`]: value };
       case 'added':
-        return { ...acc, [`+ ${name}`]: value1 };
+        return { ...acc, [`+ ${name}`]: value };
       case 'removed':
-        return { ...acc, [`- ${name}`]: value1 };
+        return { ...acc, [`- ${name}`]: value };
       case 'updated':
-        return { ...acc, [`- ${name}`]: value1, [`+ ${name}`]: value2 };
+        return { ...acc, [`- ${name}`]: oldValue, [`+ ${name}`]: newValue };
       case 'nested':
         return { ...acc, [`  ${name}`]: render(children) };
       default:
@@ -23,6 +23,6 @@ const render = (value) => {
   return result;
 };
 
-const stylish = (data) => stringify(render(data));
+const getStylish = (data) => stringify(render(data));
 
-export default stylish;
+export default getStylish;

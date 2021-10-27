@@ -1,13 +1,18 @@
-import stylish from './stylish.js';
-import plain from './plain.js';
+import getStylish from './stylish.js';
+import getPlain from './plain.js';
+import getJson from './json.js';
 
 const formatedResult = (data, format) => {
-  if (format === 'stylish') {
-    return stylish(data);
-  } if (format === 'plain') {
-    return plain(data);
+  switch (format) {
+    case 'stylish':
+      return getStylish(data);
+    case 'plain':
+      return getPlain(data);
+    case 'json':
+      return getJson(data);
+    default:
+      return 'Error unknown file';
   }
-  return 'Error unknown file';
 };
 
 export default formatedResult;

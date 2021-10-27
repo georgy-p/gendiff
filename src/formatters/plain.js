@@ -10,18 +10,18 @@ const getValue = (value) => {
   return value;
 };
 
-const plain = (value) => {
+const getPlain = (treeAst) => {
   const iter = (data, path) => {
     const result = data.map((el) => {
       const {
-        name, type, value1, value2, children,
+        name, type, value, oldValue, newValue, children,
       } = el;
       const currentPath = [...path, `${name}`];
       switch (type) {
         case 'updated':
-          return `Property '${currentPath.join('.')}' was updated. From ${getValue(value1)} to ${getValue(value2)}`;
+          return `Property '${currentPath.join('.')}' was updated. From ${getValue(oldValue)} to ${getValue(newValue)}`;
         case 'added':
-          return `Property '${currentPath.join('.')}' was added with value: ${getValue(value1)}`;
+          return `Property '${currentPath.join('.')}' was added with value: ${getValue(value)}`;
         case 'nested':
           return iter(children, currentPath);
         case 'removed':
@@ -32,7 +32,7 @@ const plain = (value) => {
     });
     return _.flattenDeep(result).join('\n');
   };
-  return iter(value, []);
+  return iter(treeAst, []);
 };
 
-export default plain;
+export default getPlain;
