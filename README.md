@@ -6,13 +6,13 @@
 
 ## About
 
-Gendiff is CLI application that determines the differences between two data structures.
+Gendiff is a CLI application that displays the differences between two data structures.
 
 ## Options
 
-- Supported formats: `.yaml`, `.yml` and `.json`
-- Representing reports as *plain text, stylish* and *JSON*.
-- Don't need a full file path. Just write a file name.
+- Supported formats: `.yaml`, `.yml` and `.json`.
+- Representing output as *plain text, stylish* and *JSON*.
+- You can specify only file names instead of full path.
 
 ## Examples
 
@@ -62,7 +62,7 @@ Property 'group3' was added with value: [complex value]
 
 ## How to install
 
-1. Clone the repository by command `$ git clone https://github.com/georgy-p/gendiff` .
+1. Clone the repository using the following command `$ git clone https://github.com/georgy-p/gendiff`.
 2. In the root directory: `$ make install`.
 
 ## Usage
